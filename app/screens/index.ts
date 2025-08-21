@@ -1,4 +1,5 @@
 // Export all screens
+export { default as LandingScreen } from './auth/LandingScreen';
 export { default as LoginScreen } from './auth/LoginScreen';
 export { default as OnboardingScreen } from './auth/OnboardingScreen';
 export { default as SignUpScreen } from './auth/SignUpScreen';

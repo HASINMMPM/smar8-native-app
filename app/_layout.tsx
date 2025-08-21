@@ -22,6 +22,13 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen 
+          name="screens/auth/LandingScreen" 
+          options={{ 
+            headerShown: false,
+            presentation: 'fullScreenModal'
+          }} 
+        />
+        <Stack.Screen 
           name="screens/auth/WelcomeScreen" 
           options={{ 
             headerShown: false,

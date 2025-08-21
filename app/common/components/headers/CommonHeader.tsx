@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
+import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 interface CommonHeaderProps {
   title: string;
@@ -33,15 +33,15 @@ export default function CommonHeader({
         
         <View style={styles.headerControls}>
           <TouchableOpacity onPress={onAddPress} style={styles.headerButton}>
-            <Ionicons name="add" size={20} color={Colors.primary} />
+            <Ionicons name="add" size={20} color={Colors.textInverse} />
           </TouchableOpacity>
           
           <TouchableOpacity onPress={onSearchPress} style={styles.headerButton}>
-            <Ionicons name="search" size={20} color={Colors.primary} />
+            <Ionicons name="search" size={20} color={Colors.textInverse} />
           </TouchableOpacity>
           
           <TouchableOpacity onPress={onMenuPress} style={styles.headerButton}>
-            <Ionicons name="ellipsis-vertical" size={20} color={Colors.primary} />
+            <Ionicons name="ellipsis-vertical" size={20} color={Colors.textInverse} />
           </TouchableOpacity>
         </View>
       </View>
@@ -54,7 +54,7 @@ export default function CommonHeader({
       <View style={styles.header}>
         <TouchableOpacity onPress={onBackPress} style={styles.backButton}>
           {backIcon === 'arrow' ? (
-            <Ionicons name="arrow-back" size={24} color={Colors.textPrimary} />
+            <Ionicons name="arrow-back" size={24} color={Colors.textInverse} />
           ) : (
             <Text style={styles.backText}>←</Text>
           )}
@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 60,
     paddingBottom: 20,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.primary,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.primaryDark,
     zIndex: 1000,
   },
   
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     fontSize: 20,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.textInverse,
   },
   
   // 🔙 GENERAL HEADER STYLES
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     fontSize: 16,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.textInverse,
   },
   
   headerControls: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     padding: 12,
     marginLeft: 8,
     borderRadius: 20,
-    backgroundColor: Colors.backgroundSecondary,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 44,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   backButton: {
     padding: 8,
     borderRadius: 20,
-    backgroundColor: Colors.backgroundSecondary,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 40,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 20,
     fontWeight: '600',
-    color: Colors.textPrimary,
+    color: Colors.textInverse,
   },
   
   headerSpacer: {

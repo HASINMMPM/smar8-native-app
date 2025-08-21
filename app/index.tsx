@@ -1,14 +1,6 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'expo-router';
+import React from 'react';
+import LandingScreen from './screens/auth/LandingScreen';
 
 export default function IndexScreen() {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Directly redirect to WelcomeScreen - no welcome page needed
-    router.replace('/screens/auth/WelcomeScreen');
-  }, []);
-
-  // Return null since we're redirecting immediately
-  return null;
+  return <LandingScreen />;
 }
