@@ -51,9 +51,9 @@ export default function SignUpScreen() {
     }
   };
 
-  const handleBackToOnboarding = () => {
-    router.push('/screens/auth/OnboardingScreen');
-  };
+  // const handleBackToOnboarding = () => {
+  //   router.push('/screens/auth/OnboardingScreen');
+  // };
 
   const handleGoToLogin = () => {
     router.push('/screens/auth/LoginScreen');
@@ -71,9 +71,9 @@ export default function SignUpScreen() {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={handleBackToOnboarding} style={styles.backButton}>
+          {/* <TouchableOpacity onPress={handleBackToOnboarding} style={styles.backButton}>
             <Text style={styles.backButtonText}>← Back</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           
           <Text variant="h1" color="textPrimary" style={styles.title}>
             Create Account

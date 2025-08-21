@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { Button, Swipe, Text } from '@/app/common/components/ui';
+import OnboardingLayout, { styles } from '@/app/layouts/OnboardingLayout';
+import { Colors } from '@/constants/Colors';
+import {
+  OnboardingSecurityManager,
+  generateSecureSessionId,
+  onboardingAuditLogger
+} from '@/utils/security';
+import { useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
 } from 'react-native';
-import { useRouter } from 'expo-router';
-import OnboardingLayout, { SIZES, styles } from '@/app/layouts/OnboardingLayout';
-import { Button, Text, Swipe } from '@/app/common/components/ui';
-import { Colors } from '@/constants/Colors';
-import { 
-  OnboardingSecurityManager, 
-  generateSecureSessionId,
-  onboardingAuditLogger 
-} from '@/utils/security';
 
 interface OnboardingStep {
   id: number;
@@ -148,9 +148,8 @@ export default function OnboardingScreen() {
     <OnboardingLayout 
       backgroundColor={Colors.backgroundSecondary}
       statusBarStyle="dark-content"
+      skipButton={skipButton}
     >
-      {skipButton}
-      
       <Swipe
         onSwipeLeft={handleSwipeLeft}
         onSwipeRight={handleSwipeRight}

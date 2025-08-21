@@ -47,9 +47,9 @@ export default function LoginScreen() {
     router.push('/screens/auth/SignUpScreen');
   };
 
-  const handleBackToOnboarding = () => {
-    router.push('/screens/auth/OnboardingScreen');
-  };
+  // const handleBackToOnboarding = () => {
+  //   router.push('/screens/auth/OnboardingScreen');
+  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -63,9 +63,9 @@ export default function LoginScreen() {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* Header */}
         <View style={styles.header}>
-          <TouchableOpacity onPress={handleBackToOnboarding} style={styles.backButton}>
+          {/* <TouchableOpacity onPress={handleBackToOnboarding} style={styles.backButton}>
             <Text style={styles.backButtonText}>← Back</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           
           <Text variant="h1" color="textPrimary" style={styles.title}>
             Welcome Back

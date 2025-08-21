@@ -1,13 +1,13 @@
+import { Colors } from '@/constants/Colors';
 import React from 'react';
 import {
-  View,
-  StyleSheet,
-  SafeAreaView,
   Dimensions,
-  StatusBar,
+  SafeAreaView,
   ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
 } from 'react-native';
-import { Colors } from '@/constants/Colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -25,21 +25,25 @@ interface OnboardingLayoutProps {
   backgroundColor?: string;
   statusBarStyle?: 'light-content' | 'dark-content';
   children: React.ReactNode;
+  skipButton?: React.ReactNode;
 }
 
 export default function OnboardingLayout({
   backgroundColor = '#FFFFFF',
   statusBarStyle = 'dark-content',
   children,
+  skipButton,
 }: OnboardingLayoutProps) {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor }]}>
       <StatusBar barStyle={statusBarStyle} backgroundColor={backgroundColor} />
       
-      {/* Skip Button Container - Positioned absolutely */}
-      <View style={styles.skipButtonContainer}>
-        {/* Skip button will be provided by children */}
-      </View>
+      {/* Skip Button Container - Positioned absolutely in top-right */}
+      {skipButton && (
+        <View style={styles.skipButtonContainer}>
+          {skipButton}
+        </View>
+      )}
       
       {/* Scrollable Content Area */}
       <ScrollView 
@@ -219,3 +223,4 @@ const styles = StyleSheet.create({
 
 // Export sizing constants and styles for use in OnboardingScreen
 export { SIZES, styles };
+
