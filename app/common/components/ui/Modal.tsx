@@ -1,12 +1,11 @@
+import { Colors } from '@/constants/Colors';
 import React from 'react';
 import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-  Modal as RNModal,
+    Dimensions,
+    Modal as RNModal,
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
-import { Colors } from '@/constants/Colors';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -25,8 +24,8 @@ export default function Modal({
   visible,
   onClose,
   children,
-  backdropColor = Colors.overlay,
-  backdropOpacity = 0.5,
+  backdropColor = 'rgba(0, 0, 0, 0.7)',
+  backdropOpacity = 0.7,
   animationType = 'fade',
   transparent = true,
   style,
@@ -42,7 +41,6 @@ export default function Modal({
         style={[
           styles.backdrop,
           { backgroundColor: backdropColor },
-          { opacity: backdropOpacity },
         ]}
         onPress={onClose}
         activeOpacity={1}

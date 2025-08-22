@@ -1,13 +1,13 @@
+import { Colors } from '@/constants/Colors';
 import React from 'react';
 import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
+    Dimensions,
+    StyleSheet,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { Colors } from '@/constants/Colors';
-import Text from './Text';
 import Modal from './Modal';
+import Text from './Text';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -112,6 +112,16 @@ const styles = StyleSheet.create({
   alertContainer: {
     maxWidth: screenWidth * 0.8,
     minWidth: 280,
+    backgroundColor: Colors.background,
+    borderRadius: 16,
+    shadowColor: Colors.shadowDark,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 10,
   },
   alertContent: {
     alignItems: 'center',
@@ -148,6 +158,8 @@ const styles = StyleSheet.create({
   },
   defaultButton: {
     backgroundColor: Colors.primary,
+    minHeight: 44,
+    borderRadius: 8,
   },
   defaultButtonText: {
     color: Colors.textInverse,

@@ -1,5 +1,7 @@
-import { Button, Input, Text } from '@/app/common/components/ui';
+import { Alert, Button, Input, Text } from '@/app/common/components/ui';
 import { Colors } from '@/constants/Colors';
+import { API_ENDPOINTS } from '@/constants/api';
+import api from '@/utils/api';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -13,39 +15,60 @@ import {
 } from 'react-native';
 
 export default function SignUpScreen() {
-  const [username, setUsername] = useState('');
+  const [mobile, setMobile] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
   const handleSignup = async () => {
-    if (!username || !email || !password) {
-      // TODO: Show error message
-      console.log('Please fill in all fields');
+    // Clear previous error messages
+    setErrorMessage('');
+    setShowError(false);
+
+    if (!mobile || !email || !password) {
+      setErrorMessage('Please fill in all fields');
+      setShowError(true);
       return;
     }
 
     if (password.length < 6) {
-      // TODO: Show error message
-      console.log('Password must be at least 6 characters');
+      setErrorMessage('Password must be at least 6 characters');
+      setShowError(true);
+      return;
+    }
+
+    // Basic mobile number validation
+    if (mobile.length < 10) {
+      setErrorMessage('Please enter a valid mobile number');
+      setShowError(true);
       return;
     }
 
     setIsLoading(true);
     try {
-      // TODO: Implement actual Signup logic
-      console.log('Signup attempt:', { username, email, password });
+      // Call the registration API
+      const signupData = {
+        mobile,
+        email,
+        password,
+      };
+
+      console.log('Signup attempt:', signupData);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await api.post(API_ENDPOINTS.AUTH.REGISTER_USER, signupData);
+      
+      console.log('Signup successful:', response);
       
       // Navigate to dashboard on success
       router.replace('/screens/core/DashboardScreen');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Signup error:', error);
-      // TODO: Show error message
+      setErrorMessage(error.message || 'Signup failed. Please try again.');
+      setShowError(true);
     } finally {
       setIsLoading(false);
     }
@@ -87,12 +110,13 @@ export default function SignUpScreen() {
         <View style={styles.form}>
           <View style={styles.inputGroup}>
             <Text variant="body" color="textPrimary" style={styles.label}>
-              Username
+              Mobile Number
             </Text>
             <Input
-              placeholder="Enter your username"
-              value={username}
-              onChangeText={setUsername}
+              placeholder="Enter your mobile number"
+              value={mobile}
+              onChangeText={setMobile}
+              keyboardType="phone-pad"
               autoCapitalize="none"
               autoCorrect={false}
             />
@@ -139,6 +163,8 @@ export default function SignUpScreen() {
             </View>
           </View>
 
+
+
           <Button
             title={isLoading ? "Creating Account..." : "Create Account"}
             onPress={handleSignup}
@@ -161,6 +187,14 @@ export default function SignUpScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* Error Alert */}
+      <Alert
+        visible={showError}
+        title="Signup Error"
+        message={errorMessage}
+        onClose={() => setShowError(false)}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -238,4 +272,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+
 });

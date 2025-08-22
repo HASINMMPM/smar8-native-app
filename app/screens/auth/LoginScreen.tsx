@@ -1,15 +1,18 @@
-import { Button, Input, Text } from '@/app/common/components/ui';
+import { Alert, Button, Input, Text } from '@/app/common/components/ui';
 import { Colors } from '@/constants/Colors';
+import { API_ENDPOINTS } from '@/constants/api';
+import api from '@/utils/api';
+
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 
 export default function LoginScreen() {
@@ -17,27 +20,48 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
   const handleLogin = async () => {
+    // Clear previous error messages
+    setErrorMessage('');
+    setShowError(false);
+
     if (!email || !password) {
-      // TODO: Show error message
+      setErrorMessage('Please fill in all fields');
+      setShowError(true);
       return;
     }
 
     setIsLoading(true);
     try {
-      // TODO: Implement actual login logic
-      console.log('Login attempt:', { email, password });
+      // Call the login API
+      const loginData = {
+        email,
+        password,
+      };
+
+      console.log('Login attempt:', loginData);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, loginData);
+      
+      console.log('Login successful:', response);
+      
+      // Store the auth token if it's returned
+      if (response.token) {
+        // You can use AsyncStorage here to store the token
+        // await AsyncStorage.setItem('authToken', response.token);
+        console.log('Auth token received:', response.token);
+      }
       
       // Navigate to dashboard on success
       router.replace('/screens/core/DashboardScreen');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
-      // TODO: Show error message
+      setErrorMessage(error.message || 'Login failed. Please check your credentials.');
+      setShowError(true);
     } finally {
       setIsLoading(false);
     }
@@ -46,6 +70,8 @@ export default function LoginScreen() {
   const handleSignUp = () => {
     router.push('/screens/auth/SignUpScreen');
   };
+
+
 
   // const handleBackToOnboarding = () => {
   //   router.push('/screens/auth/OnboardingScreen');
@@ -79,10 +105,10 @@ export default function LoginScreen() {
         <View style={styles.form}>
           <View style={styles.inputGroup}>
             <Text variant="body" color="textPrimary" style={styles.label}>
-              Email or Phone
+              Email
             </Text>
             <Input
-              placeholder="Enter your email or phone"
+              placeholder="Enter your email"
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -124,6 +150,8 @@ export default function LoginScreen() {
             </Text>
           </TouchableOpacity>
 
+
+
           <Button
             title={isLoading ? "Signing In..." : "Sign In"}
             onPress={handleLogin}
@@ -132,6 +160,8 @@ export default function LoginScreen() {
             style={styles.loginButton}
             disabled={isLoading}
           />
+
+
         </View>
 
         {/* Sign Up Link */}
@@ -146,6 +176,14 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      {/* Error Alert */}
+      <Alert
+        visible={showError}
+        title="Login Error"
+        message={errorMessage}
+        onClose={() => setShowError(false)}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -231,4 +269,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+
+
 });
